@@ -13,13 +13,15 @@ try {
   }
 
   stage('create container image') {
-      container('docker') {
-        sh """
-          docker build -t exampleapp .
-        """
-      }
+	  node('master'){
+		  container('docker') {
+			  sh """
+			  docker build -t exampleapp .
+			  """
+		  }
+	  }
   }
-
+	
   stage('Deploy on Dev') {
   	node('master'){
         sh ''' sed -i 's/VERSION/'"${BUILD_NUMBER}"'/g' deploy/flask.yml '''
