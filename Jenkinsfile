@@ -12,17 +12,12 @@ try {
     }
   }
 
-  stage('Build And Push Docker Image') {
-    node('master'){
-        docker.withRegistry('https://703569030910.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:ecr-cred') {
-           
-            //build image
-            def customImage = docker.build("703569030910.dkr.ecr.ap-south-1.amazonaws.com/exampleapp:${BUILD_NUMBER}")
-             
-            //push image
-           # customImage.push()
-        }
-    }
+  stage('create container image') {
+      container('docker') {
+        sh """
+          docker build -t exampleapp .
+        """
+      }
   }
 
   stage('Deploy on Dev') {
