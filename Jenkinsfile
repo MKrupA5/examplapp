@@ -17,7 +17,7 @@ try {
         docker.withRegistry('https://703569030910.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:ecr-cred') {
            
             //build image
-            def customImage = docker.build("703569030910.dkr.ecr.ap-south-1.amazonaws.com/exampleapp:${BUILD_NUMBER}")
+            def customImage = docker.build("703569030910.dkr.ecr.ap-south-1.amazonaws.com/invoice:ea.${BUILD_NUMBER}")
              
             //push image
             customImage.push()
